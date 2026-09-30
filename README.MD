@@ -1,18 +1,16 @@
-a worker file that has a support page that actually looks nice
+a worker file that is a support page that actually looks nice
 
-1. Create the D1 database
+# 1. Create the D1 database
 
 In Cloudflare Dashboard:
 
 Workers & Pages → D1 SQL database → Create database
 
-Name it:
-
-support-db
+Name it: `support-db`
 
 Create it.
 
-2. Create the tables
+# 2. Create the tables
 
 Open your support-db → Console / SQL.
 
@@ -35,11 +33,11 @@ CREATE TABLE messages (
     FOREIGN KEY (ticket_id) REFERENCES tickets(id)
 );
 
-Click Execute.
+## Execute it or press enter
 
-You should get a successful execution message.
+### You should get a successful execution message.
 
-3. Check the tables
+# 3. Check the tables (Optional, But reccomended)
 
 Run:
 
@@ -51,31 +49,25 @@ You should see:
 
 tickets
 messages
-4. Add the D1 binding to the Worker
+
+# 4. Add the D1 binding to the Worker
 
 Go to:
 
-Workers & Pages → your Worker → Settings → Bindings
+### Workers & Pages → your Worker → Settings → Bindings
 
 Add:
-
 Binding type:
+**D1 database**
+Variable name: `DB`
 
-D1 database
+D1 database: `support-db`
 
-Variable name:
+### **Save/deploy the Worker.**
 
-DB
+# 5. Put the Worker code in worker.js
 
-D1 database:
-
-support-db
-
-Save/deploy the Worker.
-
-5. Put the Worker code in worker.js
-
-Replace the entire existing worker.js with the full code I gave you.
+Replace the entire existing worker.js with the full code in worker.js in the github repo.
 
 Do not put anything before:
 
@@ -84,13 +76,14 @@ export default {
 And do not put anything after the final:
 
 `;
-6. Deploy
+
+# 6. Deploy
 
 If you're using the Cloudflare Dashboard, click:
 
-Save and deploy
+`Save and deploy`
 
-If you're using Wrangler:
+If you're using Wrangler: (Not reccomended)
 
 npx wrangler deploy
 7. Test the user page
@@ -99,9 +92,6 @@ Open:
 
 https://YOUR-WORKER-DOMAIN/support
 
-Example:
-
-https://support.example.workers.dev/support
 
 Enter a username, for example:
 
@@ -128,10 +118,14 @@ Close the ticket
 
 On /support, sign in as:
 
-barad
+IDK
 
 Create a ticket.
 
 Refresh the page.
 
 The username is restored from localStorage, and the tickets are loaded from D1, so the tickets remain there.
+
+
+
+So to make it password protected, make the /Admin turn it into /Password123123_admin or anything else. if you need any assistance, dm me in discord : **BaradIsSus**
